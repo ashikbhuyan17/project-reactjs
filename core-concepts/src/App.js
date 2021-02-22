@@ -9,6 +9,22 @@ const hello = {
 }
 
 const nameOf = ["kamal", "jamal"]
+
+const productList = {
+  id1: { pName: 'watch', pPrice: 100 },
+  id2: { pName: 'phone', pPrice: 300 },
+  id3: { pName: 'laptop', pPrice: 4000 },
+  id4: { pName: 'light', pPrice: 60 },
+
+}
+const productList2 = [
+  { pName: 'watch', pPrice: 100 },
+  { pName: 'phone', pPrice: 300 },
+  { pName: 'laptop', pPrice: 4000 },
+  { pName: 'light', pPrice: 60 },
+]
+
+
 function App() {
   return (
     <div className="App">
@@ -37,10 +53,37 @@ function App() {
         <Person name={nameOf[0]} age="23" food="fuska"></Person>
         <Person name={nameOf[1]} age="55" food="fresh"></Person>
 
+        {/* products in object */}
+        <Products pName={productList.id1.pName} pPrice={productList.id1.pPrice}></Products>
+        <Products pName={productList.id2.pName} pPrice={productList.id2.pPrice}></Products>
+        <Products pName={productList.id3.pName} pPrice={productList.id3.pPrice}></Products>
+        <Products pName={productList.id4.pName} pPrice={productList.id4.pPrice}></Products>
+
+        {/* products in array */}
+
       </header>
 
     </div>
   );
+}
+const productsStyle = {
+  border: '1px solid red',
+  borderRadius: '5px',
+  width: '300px',
+  float: 'right',
+  backgroundColor: 'rgb(93, 155, 134)',
+  height: '300px',
+  margin: '10px'
+}
+function Products(props) {
+  return (
+    <div style={productsStyle}>
+      <div>
+        <h1>products Name : {props.pName}</h1>
+        <h4>Price : {props.pPrice}</h4>
+      </div>
+    </div>
+  )
 }
 
 
@@ -53,5 +96,7 @@ function Person(props) {
     </div>
   )
 }
+
+
 
 export default App;
