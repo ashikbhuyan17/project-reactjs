@@ -12,7 +12,8 @@ const headingStyle = {
     color: "white",
     backgroundColor: "purple",
     textAlign: "center",
-    padding: "10px"
+    padding: "10px",
+    
 }
 
 // card.js er modhe ekta functional component(Card) create kora holo 
