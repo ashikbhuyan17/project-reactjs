@@ -1,0 +1,18 @@
+.title{
+    background-color: rgba(71, 179, 179, 0.336);
+    padding: 10px;
+}
+.firstTime{
+    width: 300px;
+    background-color: azure;
+    text-align: center;
+    margin: auto;
+}
+.card{
+    
+    width: 500px;
+    background-color: rgba(71, 179, 179, 0.336);
+    text-align: center;
+    margin-top: 50px;
+    /* margin: auto; */
+}
