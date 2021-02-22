@@ -17,12 +17,7 @@ const productList = {
   id4: { pName: 'light', pPrice: 60 },
 
 }
-const productList2 = [
-  { pName: 'watch', pPrice: 100 },
-  { pName: 'phone', pPrice: 300 },
-  { pName: 'laptop', pPrice: 4000 },
-  { pName: 'light', pPrice: 60 },
-]
+
 
 
 function App() {
@@ -60,12 +55,17 @@ function App() {
         <Products pName={productList.id4.pName} pPrice={productList.id4.pPrice}></Products>
 
         {/* products in array */}
-
+        <Products2 product={productList2[0]} > </Products2>
+        <Products2 product={productList2[1]} > </Products2>
+        <Products2 product={productList2[2]} > </Products2>
+        <Products2 product={productList2[3]} > </Products2>
       </header>
 
     </div>
   );
 }
+
+// object declaration
 const productsStyle = {
   border: '1px solid red',
   borderRadius: '5px',
@@ -86,9 +86,41 @@ function Products(props) {
   )
 }
 
+const productList2 = [
+  { pName: 'p1', pPrice: 100 },
+  { pName: 'p2', pPrice: 300 },
+  { pName: 'p3', pPrice: 4000 },
+  { pName: 'p4', pPrice: 60 },
+]
+console.log(productList2[0].pName);
+// array declaration
+const productsStyle2 = {
+  border: '1px solid red',
+  borderRadius: '5px',
+  width: '300px',
+  float: 'right',
+  backgroundColor: 'green',
+  height: '300px',
+  margin: '10px'
+}
+
+function Products2(props) {
+  const { pName, pPrice } = props.product
+  console.log(pName, pPrice);
+  return (
+    <div style={productsStyle2}>
+      <h1>products 2 :</h1><hr />
+      <div>
+        <h1>products2 Name : {pName}</h1>
+        <h4>Price2 : {pPrice}</h4>
+      </div>
+    </div>
+  )
+}
+
 
 function Person(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <div style={{ border: ' 1px solid red', padding: '20px', backgroundColor: 'white', color: 'black', marginBottom: '20px' }}>
       <h1>Name : {props.name}</h1>
