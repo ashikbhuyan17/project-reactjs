@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+import { useEffect } from "react";
 import logo from './logo.svg';
 import './App.css';
 
@@ -31,7 +33,7 @@ const productsStyle2 = {
 
 
 function App() {
-  const nameOf = ["kamal", "jamal"]
+  const nayoks = ["kamal", "jamal", "fahim", "rahim"]
 
   const productList = [
     { pName: 'p1', pPrice: 100 },
@@ -45,27 +47,83 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <Counter></Counter>
+        <Users></Users>
+        <ul>
+          {
+            nayoks.map(nayok => <li>{nayok}</li>)
+          }
+
+          {
+            productList.map(product => <li>{product.pPrice}</li>)
+          }
+        </ul>
 
         {/* set attribute and data gulu ke props hisebe pataiye divo*/}
-        <Person name={nameOf[0]} age="23" food="fuska"></Person>
-        <Person name={nameOf[1]} age="55" food="fresh"></Person>
+        <Person name={nayoks[0]} age="23" food="fuska"></Person>
+        <Person name={nayoks[1]} age="55" food="fresh"></Person>
 
         {/* products in array */}
-        <Products product={productList[0]} > </Products>
+        {
+          productList.map(product => <Products p={product} > </Products>) // Products components ke daclear kora hoice thn p name ekta property set kora hoice
+        }
+
+        {/* <Products product={productList[0]} > </Products>
         <Products product={productList[1]} > </Products>
         <Products product={productList[2]} > </Products>
-        <Products product={productList[3]} > </Products>
+        <Products product={productList[3]} > </Products> */}
       </header>
 
     </div >
   );
 }
 
+//  Load dynamic data, API call useEffect integrate state
+function Users() {
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {   //data load korar jonno useEffect use kora hoyeche
+    console.log("calling effect");
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(res => res.json())
+      .then(data => setUsers(data))
+  }, [])
+
+  return (
+    <div>
+      <h3>dynamic users : {users.length} </h3>
+      <ul>
+        {
+          users.map(user => <li>{user.name}</li>)
+        }
+      </ul>
+    </div>
+  )
+}
 
 
+// Component state hook and set state method
+function Counter() {
+  let [count, setState] = useState(10);
+  // const handleIncrease = () => {
+  //   // const newCount = count + 1
+  //   // setState(newCount)
+  //   setState(count + 1)
+  // }
+  return (
+    <div>
+      <h1>count: {count}</h1>
+      {/* <button onClick={handleIncrease}>increase</button> */}
+      <button onClick={() => setState(count + 1)}>increase</button>
+      <button onClick={() => setState(count - 1)}>decrease</button>
+
+    </div>
+  )
+}
 
 function Products(props) {
-  const { pName, pPrice } = props.product
+  console.log("props ", props);
+  const { pName, pPrice } = props.p
   console.log(pName, pPrice);
   return (
     <div style={productsStyle}>
@@ -76,6 +134,7 @@ function Products(props) {
     </div>
   )
 }
+
 
 
 function Person(props) {
