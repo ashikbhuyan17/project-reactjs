@@ -81,7 +81,6 @@ function App() {
 //  Load dynamic data, API call useEffect integrate state
 function Users() {
   const [users, setUsers] = useState([])
-
   useEffect(() => {   //data load korar jonno useEffect use kora hoyeche
     console.log("calling effect");
     fetch('https://jsonplaceholder.typicode.com/users')

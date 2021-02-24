@@ -17,15 +17,12 @@ const headingStyle = {
 }
 
 // card.js er modhe ekta functional component(Card) create kora holo 
-function Card(props) {
-    console.log(props);
-    const { titleText, dec } = props
-    console.log(titleText, dec);
+function Card() {
     return (
         <div className="card">
             <h1 style={headingStyle}>Card !!</h1>   {/* inline css  */}
-            <h3 className="workMan">{titleText}</h3>         {/* external css (src/index.css) */}
-            <p className="title">{dec}</p>                  {/* external css (public/style.css) */}
+            <h3 className="workMan">It's working</h3>         {/* external css (src/index.css) */}
+            <p className="title">{title}</p>                  {/* external css (public/style.css) */}
             <p>{dateName + "/" + monthsName + "/" + yearName}</p>
         </div>
     )

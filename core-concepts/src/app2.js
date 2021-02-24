@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 const hello = {
     color: "white",
@@ -36,6 +37,9 @@ function App() {
                 {/* set attribute and data gulu ke props hisebe pataiye divo*/}
                 <Person name={nameOf[0]} age="23" food="fuska"></Person>
                 <Person name={nameOf[1]} age="55" food="fresh"></Person>
+                {/* pName={productList.id1.pName} => dynamic data
+                    name = "ashik" => static data
+                */}
 
                 {/* products in object */}
                 <Products pName={productList.id1.pName} pPrice={productList.id1.pPrice}></Products>
