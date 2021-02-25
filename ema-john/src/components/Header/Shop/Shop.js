@@ -14,7 +14,7 @@ const Shop = () => {
             <div className="product-container">
 
                 {
-                    product.map(p => <Product cat={p.category} i={p.img}> </Product>)
+                    product.map((p, index) => <Product product={p} key={index} > </Product>)
                 }
 
             </div>
