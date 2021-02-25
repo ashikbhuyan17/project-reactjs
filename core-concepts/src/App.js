@@ -47,6 +47,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <Movie></Movie>
         <Counter></Counter>
         <Users></Users>
         <ul>
@@ -77,6 +78,23 @@ function App() {
     </div >
   );
 }
+
+function Movie() {
+  const [mCount, setValue] = useState(4)
+  const handleClick = () => setValue(mCount + 1)
+  return (
+    <div>
+      <h4>Numbers of Movie : {mCount}</h4>
+      <MovieDisplay movies={mCount}></MovieDisplay>
+      <button onClick={handleClick}> Add movie</button>
+    </div>
+  )
+}
+
+function MovieDisplay(props) {
+  return <h4>i have acted : {props.movies} </h4>
+}
+
 
 //  Load dynamic data, API call useEffect integrate state
 function Users() {
