@@ -10,17 +10,28 @@ function App() {
     fetch('https://restcountries.eu/rest/v2/all')
       .then(res => res.json())
       .then(d => {
-        // console.log(d[0])
         const data = d.slice(0, 20)
         setCountries(data)
       })
       .catch(error => console.log(error))
   }, [])
+
+
+  const [addCountry, setAddCountry] = useState([])
+
+  const handlerAddCountry = (country) => {
+    // ager value copy korar jonno ...c diyechi
+    const newCountry = [...addCountry, country]
+    setAddCountry(newCountry)
+  }
+
+
   return (
     <div>
       <h1>country length : {countries.length}</h1>
+      <h4>country added :{addCountry.length} </h4>
       {
-        countries.map(c => <Country country={c}></Country>)
+        countries.map(c => <Country country={c} handlerAddCountry={handlerAddCountry} key={c.alpha3Code}></Country>)
 
       }
 
