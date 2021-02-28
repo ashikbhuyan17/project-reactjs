@@ -3,10 +3,13 @@
     text-align: center;
     width: max-content;
     padding: 20px;
-    margin-top: 100px;
     border-radius: 5px;
     border: 1px solid rgba(219, 209, 230, 0.226);
     background-color: rgba(221, 213, 230, 0.082) ;
     box-shadow: 5px 5px 5px 5px rgb(228, 204, 204);
+    margin-bottom: 10px;
 
+}
+.dynamic-cart{
+    margin-top: 100px;
 }
