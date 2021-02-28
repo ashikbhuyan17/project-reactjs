@@ -4,7 +4,8 @@ import './Profile.css'
 const Profile = (props) => {
     console.log(props.pInfo);
     const { fullName, email, phone, income, img } = props.pInfo
-
+    console.log();
+    const handle = props.handle
     return (
         <div className="user-profile">
             <div>
@@ -15,7 +16,7 @@ const Profile = (props) => {
                 <h5>Number : {phone}</h5>
                 <h5>Income : {income}</h5>
                 <h5>Email : {email}</h5>
-                <button className="main-button">view Profile</button>
+                <button onClick={() => handle(props.pInfo)} className="main-button">view Profile</button>
             </div>
 
         </div>
