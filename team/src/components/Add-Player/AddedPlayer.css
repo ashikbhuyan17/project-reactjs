@@ -9,3 +9,8 @@
     box-shadow: 5px 5px 5px 5px rgb(228, 204, 204);
     margin-bottom: 10px;
 }
+.details-player{
+    background-color: rgba(221, 199, 169, 0.363);
+    padding: 5px;
+    font-weight: bolder;
+}

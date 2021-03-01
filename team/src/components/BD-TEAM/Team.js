@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import teamData from '../../data.json'
-import Cart from '../Cart/Cart';
+import Cart from '../Add-Player/AddedPlayer';
 import Header from '../Header/Header';
 import Players from '../Players/Players';
 import './Team.css'
@@ -13,15 +13,17 @@ const Team = () => {
         setData(teamData)
     }, [])
 
-
     // handleAddPlayer
     const [player, setPlayer] = useState([])
     const handleAddPlayer = (teammate) => {
-        const newPlayer = [...player, teammate]
-        setPlayer(newPlayer)
-    }
-    // console.log("player", player);
+        if (player.includes(teammate)) {
+            console.log("hiii");
+        } else {
+            const newPlayer = [...player, teammate]
+            setPlayer(newPlayer)
+        }
 
+    }
     return (
         <div>
             <Header></Header>
@@ -33,7 +35,6 @@ const Team = () => {
                 </div>
                 <div className="players-cart">
                     <Cart player={player}></Cart>
-                    <h1>this is cart</h1>
                 </div>
             </div>
         </div>
