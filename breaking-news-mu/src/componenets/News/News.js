@@ -12,7 +12,9 @@ const useStyles = makeStyles({
         maxWidth: 345,
     },
 });
-const News = () => {
+const News = (props) => {
+    console.log(props.article)
+    const { title, description, urlToImage } = props.article
     const classes = useStyles();
     return (
         <div>
@@ -22,17 +24,16 @@ const News = () => {
                         component="img"
                         alt="Contemplative Reptile"
                         height="140"
-                        image="/static/images/cards/contemplative-reptile.jpg"
+                        image={urlToImage}
                         title="Contemplative Reptile"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                            Lizard
-          </Typography>
+                            {title}
+                        </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                            across all continents except Antarctica
-          </Typography>
+                            {description}
+                        </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
