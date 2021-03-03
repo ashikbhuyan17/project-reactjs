@@ -2,17 +2,27 @@ import './App.css';
 import News from './componenets/News/News';
 import { useEffect, useState } from 'react';
 import Recharts from './componenets/News/Recharts/Recharts';
+import axios from 'axios';
 
 
 
 function App() {
   const [articles, setArticles] = useState([])
+  // fetch api 
+  // useEffect(() => {
+  //   const url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=f58ff1ebf86f44b4af023aef22ba17c5"
+  //   fetch(url)
+  //     .then(res => res.json())
+  //     .then(data => setArticles(data.articles))
+  // }, [])
+
+  // axios 
   useEffect(() => {
     const url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=f58ff1ebf86f44b4af023aef22ba17c5"
-    fetch(url)
-      .then(res => res.json())
-      .then(data => setArticles(data.articles))
+    axios(url)
+      .then(data => setArticles(data.data.articles))
   }, [])
+
   return (
     <div>
       <Recharts></Recharts>
