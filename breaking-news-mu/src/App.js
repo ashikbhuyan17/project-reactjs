@@ -1,7 +1,7 @@
 import './App.css';
-import { Button } from '@material-ui/core';
 import News from './componenets/News/News';
 import { useEffect, useState } from 'react';
+import Recharts from './componenets/News/Recharts/Recharts';
 
 
 
@@ -15,6 +15,7 @@ function App() {
   }, [])
   return (
     <div>
+      <Recharts></Recharts>
       <h3>headline : {articles.length}</h3>
       {
         articles.map(art => <News article={art}></News>)
