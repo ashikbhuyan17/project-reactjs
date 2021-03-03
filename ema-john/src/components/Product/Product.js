@@ -2,8 +2,9 @@ import React from 'react';
 // use font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import props from '../Shop/Shop';
+
 import './Product.css'
+import Shop from '../Shop/Shop';
 
 const Product = (props) => {
     // console.log(props);
