@@ -1,8 +1,9 @@
 import './App.css';
-import News from './componenets/News/News';
+import News from './components/News/News';
 import { useEffect, useState } from 'react';
-import Recharts from './componenets/News/Recharts/Recharts';
+
 import axios from 'axios';
+import Recharts from './components/Recharts/Recharts';
 
 
 
