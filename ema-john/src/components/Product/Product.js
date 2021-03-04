@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 // import Shop from '../Shop/Shop';
 
 const Product = (props) => {
-    // console.log(props);
+    console.log(props);
     const { img, name, seller, price, stoke, key } = props.product
     return (
         <div className="product">
@@ -16,13 +16,17 @@ const Product = (props) => {
                 <img src={img} alt="" />
             </div>
             <div>
-                
+
                 <h4 className="product-name"> <Link to={"/product/" + key}>{name}</Link> </h4>  {/* Dynamic path */}
                 <p><small>by : {seller}</small></p>
                 <p>$ {price}</p>
                 <p>only {stoke} left in a stoke -order soon</p>
                 {/* ()=>props.handleAddProduct(name => automatic execute na howar jonno */}
-                <button className="main-button" onClick={() => props.handleAddProduct(props.product)}><FontAwesomeIcon icon={faShoppingCart} /> add to cart</button>
+                {props.showAddToCart && <button    //props.showAddToCart && jody true hoi tbe button dekhabe
+                    className="main-button"
+                    onClick={() => props.handleAddProduct(props.product)}>
+                    <FontAwesomeIcon icon={faShoppingCart} />add to cart
+                </button>}
             </div>
         </div>
     );

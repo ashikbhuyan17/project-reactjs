@@ -24,7 +24,7 @@ const Shop = () => {
 
                 {
                     product.map((p, index) =>
-                        <Product product={p} key={index} handleAddProduct={handleAddProduct}> </Product>
+                        <Product showAddToCart={true} product={p} key={index} handleAddProduct={handleAddProduct}> </Product>
                     )
                 }
 
