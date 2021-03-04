@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import fakeData from '../../fakeData';
 import { getDatabaseCart } from '../../utilities/databaseManager';
+import ReviewItem from '../ReviewItem/ReviewItem';
 
 const Review = () => {
     // local storage takhe data gulu nibo
@@ -29,6 +30,9 @@ const Review = () => {
     return (
         <div>
             <h1>card items : {cart.length} </h1>
+            {
+                cart.map(pd => <ReviewItem key={pd.key} product={pd}></ReviewItem>)
+            }
 
         </div>
     );
