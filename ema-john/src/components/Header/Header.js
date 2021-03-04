@@ -10,7 +10,6 @@ const Header = () => {
                 <a href="/shop">Shop</a>
                 <a href="/review">Review</a>
                 <a href="/inventory">Manage Inventory</a>
-                <a href="/will-not-match">not match</a>
             </nav>
         </div>
     );

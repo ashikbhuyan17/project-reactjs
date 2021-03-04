@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Review from './components/Review/Review';
 import Inventory from './components/Inventory/Inventory';
+import NotFound from './components/NotFound/NotFound';
 
 
 
@@ -29,12 +30,12 @@ function App() {
             <Inventory />
           </Router>
           {/* main path */}
-          <Route path="/">
+          <Route exact path="/">
             <Shop></Shop>
           </Route>
           {/* not matching (404) */}
           <Route path="*">
-            <NoMatch />
+            <NotFound />
           </Route>
         </Switch>
       </Router>
