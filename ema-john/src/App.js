@@ -10,6 +10,7 @@ import {
 import Review from './components/Review/Review';
 import Inventory from './components/Inventory/Inventory';
 import NotFound from './components/NotFound/NotFound';
+import ProductDetails from './components/ProductDetails/ProductDetails';
 
 
 
@@ -33,6 +34,11 @@ function App() {
           <Route exact path="/">
             <Shop></Shop>
           </Route>
+
+          <Route path="/product/:productKey">
+            <ProductDetails />
+          </Route>
+
           {/* not matching (404) */}
           <Route path="*">
             <NotFound />
