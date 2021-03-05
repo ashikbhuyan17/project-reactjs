@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import fakeData from '../../fakeData';
-import { getDatabaseCart } from '../../utilities/databaseManager';
+import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import ReviewItem from '../ReviewItem/ReviewItem';
 
 const Review = () => {
     // local storage takhe data gulu nibo
     const [cart, setCart] = useState([])
+    const removeProduct = (productKey) => {
+        console.log('remove', productKey);
+        const newCart = cart.filter(pd => pd.key !== productKey)
+        setCart(newCart)
+        removeFromDatabaseCart(productKey)
+    }
     useEffect(() => {
         const savedCart = getDatabaseCart()
         console.log("savedCart", savedCart);
@@ -28,12 +34,17 @@ const Review = () => {
         // const productKey = Object.values(savedCart)
     }, [])
     return (
-        <div>
-            <h1>card items : {cart.length} </h1>
-            {
-                cart.map(pd => <ReviewItem key={pd.key} product={pd}></ReviewItem>)
-            }
+        <div className="twin-container">
 
+            <div className="product-container">
+                {
+                    cart.map(pd => <ReviewItem key={pd.key} removeProduct={removeProduct} product={pd}></ReviewItem>)
+                }
+
+            </div>
+            <div className="cart-container">
+                <h4>this is cart</h4>
+            </div>
         </div>
     );
 };
