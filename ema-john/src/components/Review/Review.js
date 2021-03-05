@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import fakeData from '../../fakeData';
 import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import ReviewItem from '../ReviewItem/ReviewItem';
+import Cart from '../Cart/Cart'
 
 const Review = () => {
     // local storage takhe data gulu nibo
@@ -43,7 +44,8 @@ const Review = () => {
 
             </div>
             <div className="cart-container">
-                <h4>this is cart</h4>
+                <Cart cart={cart}></Cart>
+
             </div>
         </div>
     );

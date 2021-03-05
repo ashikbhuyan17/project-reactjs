@@ -9,7 +9,7 @@ const Card = (props) => {
     for (let i = 0; i < cart.length; i++) {
         const product = cart[i];
         console.log("p ", product);
-        total = total + product.price
+        total = total + product.price * product.quantity 
 
     }
     let shipping = 0;
