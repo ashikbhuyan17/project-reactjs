@@ -9,19 +9,31 @@ const Shop = () => {
     // console.log(fakeData);
     // const first10 = fakeData.slice(0, 10)
     // console.log(first10);
-    const first10 = fakeData.slice(0, 10)
+    const first10 = fakeData.slice(0, 20)
     const [product, setProducts] = useState(first10)
-
-    // reload hole jate cart valo cole na jai or reload korle page er kono pblm hbe na jmn ace tmn takhbe
-    useEffect(() => {
-        const savedCart = getDatabaseCart()
-        const productKey = Object.keys(savedCart)
-        console.log(productKey);
-    }, [])
 
     // using cart
     const [cart, setCart] = useState([])
     console.log(cart);
+
+    // reload hole jate cart value cole na jai or reload korle page er kono pblm hbe na jmn ace tmn takhbe
+    useEffect(() => {
+        const savedCart = getDatabaseCart()
+        console.log(savedCart);
+        const productKeys = Object.keys(savedCart)
+        console.log(productKeys);
+        const previousCart = productKeys.map(existingKey => {
+            const product = fakeData.find(pd => pd.key === existingKey)
+            // quantity name ekat object create kora holo 
+            product.quantity = savedCart[existingKey]
+            // console.log(existingKey, savedCart[existingKey]);
+            return product
+        })
+        console.log(previousCart);
+        setCart(previousCart)
+    }, [])
+
+
     const handleAddProduct = (product) => {
         const sameProduct = cart.find(pd => pd.key === product.key) //quantity set
         let count = 1;
@@ -38,10 +50,12 @@ const Shop = () => {
 
         setCart(newCart)
         addToDatabaseCart(product.key, count)
+
         // const newCart = [...cart, product]
         // const count = sameProduct.length
         // console.log(newCart);
         // setCart(newCart)
+        
         // store data from the database
         // const sameProduct = newCart.filter(pd => pd.key === product.key)
         // const count = sameProduct.length

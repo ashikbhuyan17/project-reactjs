@@ -17,6 +17,8 @@ const Review = () => {
     }
 
     // store key,quantity from database
+    // reload hole jate cart value cole na jai or reload korle page er kono pblm hbe na jmn ace tmn takhbe
+
     useEffect(() => {
         const savedCart = getDatabaseCart()
         // console.log("savedCart", savedCart);
