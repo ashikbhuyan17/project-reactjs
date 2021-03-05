@@ -19,7 +19,7 @@ const Review = () => {
     // store key,quantity from database
     useEffect(() => {
         const savedCart = getDatabaseCart()
-        console.log("savedCart", savedCart);
+        // console.log("savedCart", savedCart);
         // for get keys
         const productKey = Object.keys(savedCart)
         console.log("productKey", productKey);

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import fakeData from '../../fakeData';
-import { addToDatabaseCart } from '../../utilities/databaseManager';
+import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css'
@@ -11,6 +11,14 @@ const Shop = () => {
     // console.log(first10);
     const first10 = fakeData.slice(0, 10)
     const [product, setProducts] = useState(first10)
+
+    // reload hole jate cart valo cole na jai or reload korle page er kono pblm hbe na jmn ace tmn takhbe
+    useEffect(() => {
+        const savedCart = getDatabaseCart()
+        const productKey = Object.keys(savedCart)
+        console.log(productKey);
+    }, [])
+
     // using cart
     const [cart, setCart] = useState([])
     console.log(cart);
