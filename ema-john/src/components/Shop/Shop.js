@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import fakeData from '../../fakeData';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 import Cart from '../Cart/Cart';
@@ -55,7 +56,7 @@ const Shop = () => {
         // const count = sameProduct.length
         // console.log(newCart);
         // setCart(newCart)
-        
+
         // store data from the database
         // const sameProduct = newCart.filter(pd => pd.key === product.key)
         // const count = sameProduct.length
@@ -75,9 +76,13 @@ const Shop = () => {
 
             </div>
             <div className="cart-container">
-                {/* <h4>this is cart</h4>
-                <h6>order summary {cart.length} </h6> */}
-                <Cart cart={cart}></Cart>
+                <Cart cart={cart}>
+                    <Link to="/review">
+                        <button className="main-button">Review Order</button>
+                    </Link>
+                </Cart>
+
+
             </div>
 
 
