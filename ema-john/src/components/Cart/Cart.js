@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 
 const Card = (props) => {
     const cart = props.cart
-    console.log(cart);
+    console.log("cart", cart);
     // const total = cart.reduce((total, prd) => total + prd.price, 0)
     let total = 0;
     for (let i = 0; i < cart.length; i++) {
         const product = cart[i];
         console.log("p ", product);
-        total = total + product.price * product.quantity 
+        total = total + product.price * product.quantity
+        // debugger;
 
     }
     let shipping = 0;

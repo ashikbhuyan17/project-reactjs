@@ -15,12 +15,31 @@ const Shop = () => {
     const [cart, setCart] = useState([])
     console.log(cart);
     const handleAddProduct = (product) => {
-        const newCart = [...cart, product]
-        console.log(newCart);
+        const sameProduct = cart.find(pd => pd.key === product.key) //quantity set
+        let count = 1;
+        let newCart;
+        if (sameProduct) {
+            count = sameProduct.quantity + 1;
+            sameProduct.quantity = count;
+            const others = cart.filter(pd => pd.key !== product.key)
+            newCart = [...others, sameProduct]
+        } else {
+            product.quantity = 1;
+            newCart = [...cart, product]
+        }
+
         setCart(newCart)
-        const sameProduct = newCart.filter(pd => pd.key === product.key)
-        const count = sameProduct.length
         addToDatabaseCart(product.key, count)
+        // const newCart = [...cart, product]
+        // const count = sameProduct.length
+        // console.log(newCart);
+        // setCart(newCart)
+        // store data from the database
+        // const sameProduct = newCart.filter(pd => pd.key === product.key)
+        // const count = sameProduct.length
+        // addToDatabaseCart(product.key, count)
+
+
     }
     return (
         <div className="twin-container">

@@ -7,12 +7,16 @@ import Cart from '../Cart/Cart'
 const Review = () => {
     // local storage takhe data gulu nibo
     const [cart, setCart] = useState([])
+
+    // remove item
     const removeProduct = (productKey) => {
         console.log('remove', productKey);
         const newCart = cart.filter(pd => pd.key !== productKey)
         setCart(newCart)
         removeFromDatabaseCart(productKey)
     }
+
+    // store key,quantity from database
     useEffect(() => {
         const savedCart = getDatabaseCart()
         console.log("savedCart", savedCart);
@@ -44,7 +48,7 @@ const Review = () => {
 
             </div>
             <div className="cart-container">
-                <Cart cart={cart}></Cart>
+                <Cart cart={cart} ></Cart>
 
             </div>
         </div>
