@@ -15,7 +15,10 @@ const Details = () => {
 
     const { friendId } = useParams()
     console.log(friendId)
-    const { name, email, phone, username, website } = friends
+    const { name, email, phone, username, website, address } = friends
+    console.log(address)
+    // const  street  = address.street
+    // console.log(street)
 
 
     return (
@@ -25,6 +28,7 @@ const Details = () => {
             <p>email : {email}</p>
             <p>phone : {phone}</p>
             <p>website : {website}</p>
+            {/* <p>address : {street}</p> */}
 
         </div>
     );
