@@ -7,6 +7,7 @@ import {
 import './App.css';
 import About from "./components/About/About";
 import Home from "./components/Home/Home";
+import PostDetails from "./components/PostDetails/PostDetails";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path="/about">
             <About />
+          </Route>
+          <Route path="/post/:id">
+            <PostDetails />
           </Route>
           <Route path="/dashboard">
             {/* <Dashboard /> */}
