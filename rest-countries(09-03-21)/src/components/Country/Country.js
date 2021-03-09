@@ -18,7 +18,7 @@ const Country = (props) => {
                             subregion : {subregion} <br />
                             capital : {capital}
                         </Card.Text>
-                        <Button variant="primary"><Link to={`country/${name}`}>Show Details</Link></Button>
+                        <Button variant="dark" className='Light'><Link to={`country/${name}`}>Show Details</Link></Button>
                     </Card.Body>
                 </Card>
             </CardGroup>

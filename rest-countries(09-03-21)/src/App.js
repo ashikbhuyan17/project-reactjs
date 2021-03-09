@@ -10,6 +10,7 @@ import {
 import Home from './components/Home/Home';
 import Header from './components/Header/Header';
 import Users from './components/Users';
+import CountryDetails from './components/CountryDetails/CountryDetails';
 
 
 
@@ -29,7 +30,7 @@ function App() {
           <Users></Users>
         </Route>
         <Route path="/country/:name">
-          <Users></Users>
+          <CountryDetails />
         </Route>
 
       </Switch>

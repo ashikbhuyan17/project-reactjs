@@ -13,6 +13,8 @@ const PostDetails = () => {
             .then(res => res.json())
             .then(data => setPost(data))
     }, [])
+    console.log(post);
+
 
     //for show comment
     const [comments, setComments] = useState([])
