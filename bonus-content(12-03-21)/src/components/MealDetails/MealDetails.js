@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import MealFinder from '../MealFinder/MealFinder';
 
 const MealDetails = () => {
     // const [meal, setMeal] = useState([])   id=1
@@ -18,6 +19,7 @@ const MealDetails = () => {
             {/* <h3>name :  {meal.meals?.[0].strMeal}</h3>   id=1 */}
             <h3>name :  {meal?.strMeal}</h3>
             <h3>name :  {meal.strMeal && meal.strMeal}</h3>
+            <MealFinder></MealFinder>
 
 
         </div>
