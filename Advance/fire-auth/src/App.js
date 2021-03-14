@@ -94,6 +94,7 @@ function App() {
           newUserInfo.success = true
           setUser(newUserInfo)
           console.log(errorMessage)
+          updateUserName(user.name)
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -107,14 +108,14 @@ function App() {
     }
     if (!newUser && user.email && user.password) {
       firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-        .then((userCredential) => {
+        .then((res) => {
           // Signed in
           const errorMessage = '';
           const newUserInfo = { ...user }
           newUserInfo.error = errorMessage
           newUserInfo.success = true
           setUser(newUserInfo)
-          console.log(errorMessage)
+          console.log("sign in user info ", res.user)
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -126,6 +127,17 @@ function App() {
         });
     }
     e.preventDefault()    // don't reload submit page
+  }
+  // update user info   => name ke firebase patanu
+  const updateUserName = (name) => {
+    const user = firebase.auth().currentUser;
+    user.updateProfile({
+      displayName: name,
+    }).then(function () {
+      console.log("Update successful.")
+    }).catch(function (error) {
+      console.log(error)
+    });
   }
   return (
     <div className="App">
@@ -153,7 +165,8 @@ function App() {
         }<br /> <br />
         <input type="text" name="email" onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required /> <br /> <br />
         <input type="password" name="password" onBlur={handleBlur} placeholder="your password" required /> <br /> <br />
-        <input type="submit" onSubmit={handleSubmit} value="submit"></input>
+        {/* <input type="submit" onSubmit={handleSubmit} value="submit"></input> */}
+        <input type="submit" onSubmit={handleSubmit} value={newUser ? "Sign up" : "Sign In"}></input>
       </form>
 
       {
