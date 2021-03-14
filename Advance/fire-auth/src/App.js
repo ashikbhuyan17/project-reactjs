@@ -10,19 +10,21 @@ if (!firebase.apps.length) {
 
 
 function App() {
-  const provider = new firebase.auth.GoogleAuthProvider();
+  const [newUser, setNewUser] = useState(false)
   const [user, setUser] = useState(
     {
       isSignedIn: false,
       displayName: '',
       email: '',
-      name: '',
-      error: '',
-      password: '',
       photoURL: '',
+      name: '',
+      password: '',
+      error: '',
+      success: false,
     }
   )
   console.log(user)
+  const provider = new firebase.auth.GoogleAuthProvider();
   const handleSignIn = () => {
     firebase.auth().signInWithPopup(provider)
       .then(res => {
@@ -68,14 +70,12 @@ function App() {
       // console.log(isEmailValidation)
       isFieldValid = /\S+@\S+\.\S+/.test(event.target.value)    // return the truthy or falsy value
       console.log(isFieldValid)
-
     }
     if (event.target.name === "password") {
       // const isPasswordValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
       // console.log(isPasswordValid)
       isFieldValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
       console.log(isFieldValid)
-
     }
     if (isFieldValid) {
       const newUserInfo = { ...user }
@@ -84,13 +84,14 @@ function App() {
     }
   }
   const handleSubmit = (e) => {
-    if (user.email && user.password) {
+    if (newUser && user.email && user.password) {   //new user hole etar bitore jabe
       // console.log("submitting done")
       firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
         .then((res) => {
           const errorMessage = '';
           const newUserInfo = { ...user }
           newUserInfo.error = errorMessage
+          newUserInfo.success = true
           setUser(newUserInfo)
           console.log(errorMessage)
         })
@@ -98,10 +99,31 @@ function App() {
           const errorMessage = error.message;
           const newUserInfo = { ...user }
           newUserInfo.error = errorMessage
+          newUserInfo.success = false
           setUser(newUserInfo)
           console.log(errorMessage)
         });
 
+    }
+    if (!newUser && user.email && user.password) {
+      firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+        .then((userCredential) => {
+          // Signed in
+          const errorMessage = '';
+          const newUserInfo = { ...user }
+          newUserInfo.error = errorMessage
+          newUserInfo.success = true
+          setUser(newUserInfo)
+          console.log(errorMessage)
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          const newUserInfo = { ...user }
+          newUserInfo.error = errorMessage
+          newUserInfo.success = false
+          setUser(newUserInfo)
+          console.log(errorMessage)
+        });
     }
     e.preventDefault()    // don't reload submit page
   }
@@ -121,15 +143,23 @@ function App() {
       }
 
       <h1>our own authentication </h1>
+      <input type="checkbox" onChange={() => setNewUser(!newUser)} name="newUser"></input>
+      <label htmlFor="newUser">New user signUp</label>
       {/* <p>email : {user.email}</p>
       <p>name : {user.name}</p> */}
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" /> <br /> <br />
+        {
+          newUser && <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" />
+        }<br /> <br />
         <input type="text" name="email" onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required /> <br /> <br />
         <input type="password" name="password" onBlur={handleBlur} placeholder="your password" required /> <br /> <br />
         <input type="submit" onSubmit={handleSubmit} value="submit"></input>
       </form>
-      <h5 style={{ color: 'red' }}> {user.error}</h5>
+
+      {
+        user.success ? <h5 style={{ color: 'green' }}> user {newUser ? 'created' : 'logged In'} successfully</h5> :
+          <h5 style={{ color: 'red' }}> {user.error}</h5>
+      }
     </div>
   );
 }
