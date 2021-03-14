@@ -14,6 +14,7 @@ function App() {
       displayName: '',
       email: '',
       name: '',
+      error: '',
       password: '',
       photoURL: '',
     }
@@ -56,30 +57,49 @@ function App() {
   console.log(user)
 
   const handleBlur = (event) => {
-    console.log(event.target.value, event.target.name)
+    // console.log(event.target.value, event.target.name)
     // validation 
-    let isFormValid = true;
+    let isFieldValid = true;
     if (event.target.name === "email") {
       // const isEmailValidation = /\S+@\S+\.\S+/.test(event.target.value)
       // console.log(isEmailValidation)
-      isFormValid = /\S+@\S+\.\S+/.test(event.target.value)    // return the truthy or falsy value
+      isFieldValid = /\S+@\S+\.\S+/.test(event.target.value)    // return the truthy or falsy value
+      console.log(isFieldValid)
 
     }
     if (event.target.name === "password") {
       // const isPasswordValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
       // console.log(isPasswordValid)
-      isFormValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
-      console.log(isFormValid)
+      isFieldValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
+      console.log(isFieldValid)
 
     }
-    if (isFormValid) {
+    if (isFieldValid) {
       const newUserInfo = { ...user }
       newUserInfo[event.target.name] = event.target.value
       setUser(newUserInfo)
     }
   }
-  const handleSubmit = (event) => {
-    console.log(event.target.value)
+  const handleSubmit = (e) => {
+    if (user.email && user.password) {
+      // console.log("submitting done")
+      firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+        .then((res) => {
+          // Signed in 
+          let user = res.user;
+          console.log(user)
+          // ...
+        })
+        .catch((error) => {
+          let errorMessage = error.message;
+          const newUserInfo = { ...user }
+          newUserInfo.error = errorMessage
+          setUser(newUserInfo)
+          console.log(errorMessage)
+        });
+
+    }
+    e.preventDefault()    // don't reload submit page
   }
   return (
     <div className="App">
@@ -97,14 +117,15 @@ function App() {
       }
 
       <h1>our own authentication </h1>
-      <p>email : {user.email}</p>
-      <p>name : {user.name}</p>
+      {/* <p>email : {user.email}</p>
+      <p>name : {user.name}</p> */}
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" required /> <br /> <br />
+        <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" /> <br /> <br />
         <input type="text" name="email" onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required /> <br /> <br />
         <input type="password" name="password" onBlur={handleBlur} placeholder="your password" required /> <br /> <br />
-        <input type="submit" value="submit"></input>
+        <input type="submit" onSubmit={handleSubmit} value="submit"></input>
       </form>
+      <h6 style={{ color: 'red' }}> {user.error}</h6>
     </div>
   );
 }
