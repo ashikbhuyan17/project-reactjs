@@ -24,9 +24,12 @@ function App() {
     }
   )
   console.log(user)
-  const provider = new firebase.auth.GoogleAuthProvider();
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
+  const fbProvider = new firebase.auth.FacebookAuthProvider();
+
+  // for google signIn
   const handleSignIn = () => {
-    firebase.auth().signInWithPopup(provider)
+    firebase.auth().signInWithPopup(googleProvider)
       .then(res => {
         console.log(res)
         console.log(res.user)
@@ -42,6 +45,29 @@ function App() {
         setUser(signedInUser)
 
       })
+  }
+
+  // for facebook  signIn
+  const handleFbSignIn = () => {
+    firebase.auth().signInWithPopup(fbProvider)
+      .then(result => {
+
+        const credential = result.credential;
+        debugger
+        const user = result.user;
+        console.log("fb user ", user)
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+
+        // ...
+      });
   }
   const handleSignOut = () => {
     firebase.auth().signOut()
@@ -144,7 +170,10 @@ function App() {
       {
         user.isSignedIn ? <button onClick={handleSignOut}>sign out</button> :
           <button onClick={handleSignIn}>sign in</button>
-      }
+      } <br /><br />
+
+      {/* facebook sign in */}
+      <button onClick={handleFbSignIn}>login using facebook</button>
 
       {
         user.isSignedIn && <div>
