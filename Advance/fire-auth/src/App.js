@@ -3,7 +3,10 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from './firebase.config'
 import { useState } from 'react';
-firebase.initializeApp(firebaseConfig)
+// firebase.initializeApp(firebaseConfig)
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 
 function App() {
@@ -85,13 +88,14 @@ function App() {
       // console.log("submitting done")
       firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
         .then((res) => {
-          // Signed in 
-          let user = res.user;
-          console.log(user)
-          // ...
+          const errorMessage = '';
+          const newUserInfo = { ...user }
+          newUserInfo.error = errorMessage
+          setUser(newUserInfo)
+          console.log(errorMessage)
         })
         .catch((error) => {
-          let errorMessage = error.message;
+          const errorMessage = error.message;
           const newUserInfo = { ...user }
           newUserInfo.error = errorMessage
           setUser(newUserInfo)
