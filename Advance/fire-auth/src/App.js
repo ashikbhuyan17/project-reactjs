@@ -125,7 +125,7 @@ function App() {
         <input type="password" name="password" onBlur={handleBlur} placeholder="your password" required /> <br /> <br />
         <input type="submit" onSubmit={handleSubmit} value="submit"></input>
       </form>
-      <h6 style={{ color: 'red' }}> {user.error}</h6>
+      <h5 style={{ color: 'red' }}> {user.error}</h5>
     </div>
   );
 }
