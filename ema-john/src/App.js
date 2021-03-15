@@ -12,13 +12,16 @@ import NotFound from './components/NotFound/NotFound';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import Login from './components/Login/Login';
 import Shipment from './components/Shipment/Shipment';
+import { createContext, useState } from 'react';
 
-
+export const userContext = createContext();
 
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState({})
   return (
-    <div >
+    <userContext.Provider value={[loggedInUser, setLoggedInUser]} >
+      <h1>email : {loggedInUser.email}</h1>
       <Header></Header>
       <Router>
         <Switch>
@@ -52,7 +55,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </div>
+    </userContext.Provider>
   );
 }
 
