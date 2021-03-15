@@ -4,7 +4,6 @@ import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../uti
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart'
 import happyImage from '../../images/giphy.gif'
-import { useHistory } from 'react-router';
 
 const Review = () => {
     // local storage takhe data gulu nibo
@@ -12,12 +11,12 @@ const Review = () => {
 
     // show image
     const [orderPlaced, setOrderPlaced] = useState(false)
-    const history = useHistory()
 
     // reset 
-    const handleProceedCheckout = () => {
-        history.push('/shipment')
-
+    const handlePlaceOrder = () => {
+        setCart([])
+        setOrderPlaced(true)
+        processOrder()
     }
 
     // remove item
@@ -73,8 +72,8 @@ const Review = () => {
             </div>
             <div className="cart-container">
                 <Cart cart={cart} >
-                    <button onClick={handleProceedCheckout} className="main-button">
-                        Proceed Checkout
+                    <button onClick={handlePlaceOrder} className="main-button">
+                        place order
                     </button>
                 </Cart>
 

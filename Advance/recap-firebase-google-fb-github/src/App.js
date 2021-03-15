@@ -3,7 +3,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "./firebase.config"
 import { useState } from 'react';
-import Particles from './Particles/Particles';
+import Particle from './Particle/Particle';
+import Particles from 'react-particles-js';
 
 
 if (!firebase.apps.length) {
@@ -77,7 +78,7 @@ function App() {
   }
   return (
     <div>
-      {/* <Particles></Particles> */}
+      <Particle></Particle>
       <button onClick={handleGoogle}>signIn with google</button> <br /> <br />
       <button onClick={handleFacebook}>signIn with Facebook</button> <br /> <br />
 

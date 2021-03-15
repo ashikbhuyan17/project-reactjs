@@ -5,13 +5,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link
 } from "react-router-dom";
 import Review from './components/Review/Review';
 import Inventory from './components/Inventory/Inventory';
 import NotFound from './components/NotFound/NotFound';
 import ProductDetails from './components/ProductDetails/ProductDetails';
-import Login from './components/Login/Login';
-import Shipment from './components/Shipment/Shipment';
 
 
 
@@ -30,12 +29,6 @@ function App() {
           </Route>
           <Router path="/inventory">
             <Inventory />
-          </Router>
-          <Router path="/login">
-            <Login />
-          </Router>
-          <Router path="/shipment">
-            <Shipment />
           </Router>
           {/* main path */}
           <Route exact path="/">
