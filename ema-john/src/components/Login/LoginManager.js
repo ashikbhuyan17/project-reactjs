@@ -25,6 +25,7 @@ export const handleGoogleSignIn = () => {
                 displayName: displayName,
                 email: email,
                 photoURL: photoURL,
+                success: true,
             }
             return (signedInUser)
 
@@ -39,9 +40,8 @@ export const handleFbSignIn = () => {
         .then(result => {
 
             const credential = result.credential;
-            debugger
             const user = result.user;
-            console.log("fb user ", user)
+            user.success = true
             return user
         })
         .catch((error) => {
@@ -76,64 +76,54 @@ export const handleSignOut = () => {
 }
 
 
-// export const createUserWithEmailAndPassword = () => {
-//     firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-//         .then((res) => {
-//             const errorMessage = '';
-//             const newUserInfo = { ...user }
-//             newUserInfo.error = errorMessage
-//             newUserInfo.success = true
-//             setUser(newUserInfo)
-//             console.log(errorMessage)
-//             updateUserName(user.name)
-//         })
-//         .catch((error) => {
-//             const errorMessage = error.message;
-//             const newUserInfo = { ...user }
-//             newUserInfo.error = errorMessage
-//             newUserInfo.success = false
-//             setUser(newUserInfo)
-//             console.log(errorMessage)
-//         });
-// }
+export const createUserWithEmailAndPassword = (name, email, password) => {
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((res) => {
+            const errorMessage = '';
+            const newUserInfo = res.user
+            newUserInfo.error = errorMessage
+            newUserInfo.success = true
+            return (newUserInfo)
+            // console.log(errorMessage)
+            updateUserName(name)
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            const newUserInfo = {}
+            newUserInfo.error = errorMessage
+            newUserInfo.success = false
+            return newUserInfo
+        });
+}
 
 
-// export const signInWithEmailAndPassword = () => {
-//     firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-//         .then((res) => {
-//             // Signed in
-//             const errorMessage = '';
-//             const newUserInfo = { ...user }
-//             newUserInfo.error = errorMessage
-//             newUserInfo.success = true
-//             setUser(newUserInfo)
-//             console.log("sign in user info ", res.user)
+export const signInWithEmailAndPassword = (email, password) => {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((res) => {
+            // Signed in
+            const errorMessage = '';
+            const newUserInfo = res.user
+            newUserInfo.error = errorMessage
+            newUserInfo.success = true
+            return (newUserInfo)
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            const newUserInfo = {}
+            newUserInfo.error = errorMessage
+            newUserInfo.success = false
+            return (newUserInfo)
+        });
+}
 
-//             // context api 
-//             setLoggedInUser(newUserInfo)
-
-//             // Redirect to the initial page and use Router Link
-//             console.log(history.replace(from));
-//             history.replace(from);
-//         })
-//         .catch((error) => {
-//             const errorMessage = error.message;
-//             const newUserInfo = { ...user }
-//             newUserInfo.error = errorMessage
-//             newUserInfo.success = false
-//             setUser(newUserInfo)
-//             console.log(errorMessage)
-//         });
-// }
-
-// // update user info   => name ke firebase patanu
-// const updateUserName = (name) => {
-//     const user = firebase.auth().currentUser;
-//     user.updateProfile({
-//         displayName: name,
-//     }).then(function () {
-//         console.log("Update successful.")
-//     }).catch(function (error) {
-//         console.log(error)
-//     });
-// }
+// update user info   => name ke firebase patanu
+const updateUserName = (name) => {
+    const user = firebase.auth().currentUser;
+    user.updateProfile({
+        displayName: name,
+    }).then(function () {
+        console.log("Update successful.")
+    }).catch(function (error) {
+        console.log(error)
+    });
+}
