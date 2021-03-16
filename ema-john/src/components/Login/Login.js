@@ -4,6 +4,7 @@ import "firebase/auth";
 import firebaseConfig from './firebase.config'
 import { useState } from 'react';
 import { userContext } from '../../App';
+import { useHistory, useLocation } from 'react-router';
 // firebase.initializeApp(firebaseConfig)
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -25,6 +26,10 @@ function Login() {
         }
     )
     const [loggedInUser, setLoggedInUser] = useContext(userContext)
+    let history = useHistory();
+    let location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
+
 
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     const fbProvider = new firebase.auth.FacebookAuthProvider();
@@ -112,7 +117,7 @@ function Login() {
         }
     }
     const handleSubmit = (e) => {
-        if (newUser && user.email && user.password) {   //new user hole etar bitore jabe
+        if (newUser && user.email && user.password) {
             // console.log("submitting done")
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
                 .then((res) => {
@@ -147,6 +152,10 @@ function Login() {
 
                     // context api 
                     setLoggedInUser(newUserInfo)
+
+                    // Redirect to the initial page and use Router Link
+                    console.log(history.replace(from));
+                    history.replace(from);
                 })
                 .catch((error) => {
                     const errorMessage = error.message;

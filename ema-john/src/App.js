@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
 } from "react-router-dom";
 import Review from './components/Review/Review';
 import Inventory from './components/Inventory/Inventory';
@@ -22,9 +23,10 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({})
   return (
     <userContext.Provider value={[loggedInUser, setLoggedInUser]} >
+      {console.log(loggedInUser)}
       <h1>email : {loggedInUser.email}</h1>
-      <Header></Header>
       <Router>
+        <Header></Header>
         <Switch>
           <Route path="/shop">
             <Shop />
@@ -35,12 +37,12 @@ function App() {
           <PrivateRoute path="/inventory">
             <Inventory />
           </PrivateRoute>
-          <Router path="/login">
-            <Login />
-          </Router>
           <PrivateRoute path="/shipment">
             <Shipment />
           </PrivateRoute>
+          <Route path="/login">
+            <Login />
+          </Route>
           {/* main path */}
           <Route exact path="/">
             <Shop></Shop>
