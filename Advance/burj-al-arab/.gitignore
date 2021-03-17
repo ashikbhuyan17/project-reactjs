@@ -12,7 +12,7 @@
 /build
 
 # 
-Login/fire.js
+package-lock.json
 # misc
 .DS_Store
 .env.local
