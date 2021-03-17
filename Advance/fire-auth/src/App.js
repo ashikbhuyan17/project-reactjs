@@ -140,6 +140,7 @@ function App() {
           const newUserInfo = { ...user }
           newUserInfo.error = errorMessage
           newUserInfo.success = true
+          console.log(newUserInfo);
           setUser(newUserInfo)
           console.log("sign in user info ", res.user)
         })
@@ -178,7 +179,7 @@ function App() {
       {
         user.isSignedIn && <div>
           <h1>{user.displayName}</h1>
-          <h2>{user.email}</h2>
+          <h2>{user.email} 📧</h2>
           <img src={user.photoURL} alt="" width='100px' />
         </div>
       }
