@@ -1,95 +1,142 @@
 import './App.css';
 import firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from "./firebase.config"
+import firebaseConfig from './firebase.config'
 import { useState } from 'react';
-import Particle from './Particle/Particle';
-import Particles from 'react-particles-js';
-
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Form, Button } from 'react-bootstrap';
+// firebase.initializeApp(firebaseConfig)
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
 
-
 function App() {
-  const [user, setUser] = useState([])
-  console.log(user);
-  const googleProvider = new firebase.auth.GoogleAuthProvider();
-  const githubProvider = new firebase.auth.GithubAuthProvider();
-  const fbProvider = new firebase.auth.FacebookAuthProvider();
+  const [newUser, setNewUser] = useState(false)
+  const [user, setUser] = useState(
+    {
+      isSignedIn: false,
+      displayName: '',
+      email: '',
+      photoURL: '',
+      name: '',
+      password: '',
+      error: '',
+      success: false,
+    }
+  )
+  console.log(user)
 
-  const handleGoogle = () => {
-    firebase.auth()
-      .signInWithPopup(googleProvider)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        setUser(user)
 
-      }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        const credential = error.credential;
-        // ...
-      });
-
+  const handleBlur = (event) => {
+    let isFieldValid = true;
+    if (event.target.name === "email") {
+      isFieldValid = /\S+@\S+\.\S+/.test(event.target.value)
+    }
+    if (event.target.name === "password") {
+      isFieldValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
+    }
+    if (isFieldValid) {
+      const newUserInfo = { ...user }
+      newUserInfo[event.target.name] = event.target.value
+      setUser(newUserInfo)
+    }
   }
-  const handleFacebook = () => {
-    firebase.auth()
-      .signInWithPopup(fbProvider)
-      .then((result) => {
-        const user = result.user;
-        console.log("fbuser", user);
-        setUser(user)
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        console.log(errorMessage);
-        // The firebase.auth.AuthCredential type that was used.
-        const credential = error.credential;
+  const handleSubmit = (e) => {
+    if (newUser && user.email && user.password) {
+      firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+        .then((res) => {
+          const errorMessage = '';
+          const newUserInfo = { ...user }
+          newUserInfo.error = errorMessage
+          newUserInfo.success = true
+          setUser(newUserInfo)
+          console.log(errorMessage)
+          updateUserName(user.name)
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          const newUserInfo = { ...user }
+          newUserInfo.error = errorMessage
+          newUserInfo.success = false
+          setUser(newUserInfo)
+          console.log(errorMessage)
+        });
 
-        // ...
-      });
+    }
+    if (!newUser && user.email && user.password) {
+      firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+        .then((res) => {
+          // Signed in
+          const errorMessage = '';
+          const newUserInfo = { ...user }
+          newUserInfo.error = errorMessage
+          newUserInfo.success = true
+          console.log(newUserInfo);
+          setUser(newUserInfo)
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          const newUserInfo = { ...user }
+          newUserInfo.error = errorMessage
+          newUserInfo.success = false
+          setUser(newUserInfo)
+          console.log(errorMessage)
+        });
+    }
+    e.preventDefault()
   }
-
-  const handleGithub = () => {
-    firebase.auth()
-      .signInWithPopup(githubProvider)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        setUser(user)
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        console.log(errorMessage);
-
-      });
+  // update user info   => name ke firebase patanu
+  const updateUserName = (name) => {
+    const user = firebase.auth().currentUser;
+    user.updateProfile({
+      displayName: name,
+    }).then(function () {
+      console.log("Update successful.")
+    }).catch(function (error) {
+      console.log(error)
+    });
   }
   return (
     <div>
-      <Particle></Particle>
-      <button onClick={handleGoogle}>signIn with google</button> <br /> <br />
-      <button onClick={handleFacebook}>signIn with Facebook</button> <br /> <br />
 
-      <button onClick={handleGithub}>signIn with Github</button>
+      <h1>our own authentication </h1>
+      <input type="checkbox" onChange={() => setNewUser(!newUser)} name="newUser"></input>
+      <label htmlFor="newUser">New user signUp</label>
+      <Form onSubmit={handleSubmit} className="w-50 m-4">
+        {/* {
+          newUser && <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" />
+        } */}
+        <Form.Group controlId="formBasicEmail">
+
+          {
+            newUser && <Form.Control type="name" name='name' onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" required />
+          }
+        </Form.Group>
+
+        <Form.Group controlId="formBasicEmail">
+          <Form.Control type="email" name='email' onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required />
+        </Form.Group>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Control type="password" name="password" onBlur={handleBlur} placeholder="your password" required />
+        </Form.Group>
+        <Button type="submit" >{newUser ? "Sign up" : "Sign In"}</Button>
+
+        {/* <input type="text" name="email" onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required /> <br /> <br /> */}
+        {/* <input type="password" name="password" onBlur={handleBlur} placeholder="your password" required /> <br /> <br /> */}
+        {/* <input type="submit" value={newUser ? "Sign up" : "Sign In"}></input> */}
+      </Form>
 
       {
-        <p>Name : {user.displayName}</p>
+        user.success ? <h2 style={{ color: 'green' }}> user {newUser ? 'created' : 'logged In'} successfully</h2> :
+          <h5 style={{ color: 'red' }}> {user.error}</h5>
       }
+
 
     </div>
   );
 }
 
 export default App;
+
+
