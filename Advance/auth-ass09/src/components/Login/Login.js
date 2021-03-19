@@ -122,6 +122,7 @@ const Login = () => {
                     newUserInfo.success = true
                     setUser(newUserInfo)
                     console.log(errorMessage)
+                    console.log(user.name)
                     updateUserName(user.name)
                     setLoggedInUser(newUserInfo)
                     history.replace(from)
@@ -146,6 +147,7 @@ const Login = () => {
                     newUserInfo.success = true
                     console.log(newUserInfo);
                     setUser(newUserInfo)
+                    console.log("sign in user info ", res.user)
                     setLoggedInUser(newUserInfo)
                     history.replace(from)
                 })
@@ -162,6 +164,7 @@ const Login = () => {
     }
     // update user info   => name ke firebase patanu
     const updateUserName = (name) => {
+        console.log(name)
         const user = firebase.auth().currentUser;
         user.updateProfile({
             displayName: name,
@@ -171,6 +174,7 @@ const Login = () => {
             console.log(error)
         });
     }
+    console.log(user.displayName)
     return (
         <div>
             {
@@ -197,7 +201,7 @@ const Login = () => {
                     <Form.Group controlId="formBasicEmail">
 
                         {
-                            newUser && <Form.Control type="name" name='name' onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" required />
+                            newUser && <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" />
                         }
                     </Form.Group>
 
@@ -205,7 +209,7 @@ const Login = () => {
                         <Form.Control type="email" name='email' onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required />
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Control type="password" name="password" onBlur={handleBlur} placeholder="your password" required />
+                        <Form.Control type="password" name="password" onBlur={handleBlur} placeholder="password" required />
                     </Form.Group>
                     {
                         newUser && <Form.Group controlId="formBasicEmail">

@@ -57,7 +57,6 @@ function App() {
           setUser(newUserInfo)
           console.log(errorMessage)
           updateUserName(user.name)
-
         })
         .catch((error) => {
           const errorMessage = error.message;

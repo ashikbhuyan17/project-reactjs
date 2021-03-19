@@ -23,7 +23,7 @@ function App() {
   console.log('data is ', loggedInUser);
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
-      name : {loggedInUser.email}
+      {/* name : {loggedInUser.email} */}
       <Router>
         <Header />
         <Switch>
@@ -34,7 +34,7 @@ function App() {
             <Home />
           </Route>
           <PrivateRoute path="/riderDetails/:id">
-            <RiderDetails />
+            <Destination />
           </PrivateRoute>
 
           <Route path="/login">
