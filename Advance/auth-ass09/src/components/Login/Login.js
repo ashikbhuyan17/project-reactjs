@@ -123,6 +123,8 @@ const Login = () => {
                     setUser(newUserInfo)
                     console.log(errorMessage)
                     updateUserName(user.name)
+                    setLoggedInUser(newUserInfo)
+                    history.replace(from)
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
