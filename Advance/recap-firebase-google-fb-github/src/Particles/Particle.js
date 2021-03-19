@@ -36,11 +36,11 @@ function App() {
     if (isFieldValid) {
       const newUserInfo = { ...user }
       newUserInfo[e.target.name] = e.target.value
-       setUser(newUserInfo)
+      setUser(newUserInfo)
     }
   }
   const handleSubmit = (e) => {
-    if (newUser && user.email && user.password) { 
+    if (newUser && user.email && user.password) {
       firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
         .then((res) => {
           const errorMessage = '';
@@ -59,7 +59,7 @@ function App() {
         });
 
     }
-    if (!newUser && user.email && user.password) { 
+    if (!newUser && user.email && user.password) {
       firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
         .then((res) => {
           const errorMessage = '';
@@ -81,7 +81,7 @@ function App() {
     }
     e.preventDefault()
   }
-  // update user info   => name ke firebase patanu
+
   const updateUserName = (name) => {
     const user = firebase.auth().currentUser;
     user.updateProfile({
@@ -98,10 +98,7 @@ function App() {
       <h1>our own authentication </h1>
       <input type="checkbox" onChange={() => setNewUser(!newUser)} name="newUser"></input>
       <label htmlFor="newUser">New user signUp</label>
-      {/* <p>email : {user.email}</p>
-      <p>name : {user.name}</p> */}
-
-      <form  onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         {
           newUser && <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" />
         }

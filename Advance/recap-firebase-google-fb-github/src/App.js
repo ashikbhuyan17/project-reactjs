@@ -101,8 +101,7 @@ function App() {
     <div>
 
       <h1>our own authentication </h1>
-      <input type="checkbox" onChange={() => setNewUser(!newUser)} name="newUser"></input>
-      <label htmlFor="newUser">New user signUp</label>
+
       <Form onSubmit={handleSubmit} className="w-50 m-4">
         {/* {
           newUser && <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" />
@@ -125,7 +124,10 @@ function App() {
         {/* <input type="text" name="email" onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required /> <br /> <br /> */}
         {/* <input type="password" name="password" onBlur={handleBlur} placeholder="your password" required /> <br /> <br /> */}
         {/* <input type="submit" value={newUser ? "Sign up" : "Sign In"}></input> */}
-      </Form>
+      </Form> <br /><br />
+      <label htmlFor="newUser">{newUser ? 'Have an Account ?' : "Don't Have an Account ?"} </label>
+      <button onClick={() => setNewUser(!newUser)} name="newUser">{newUser ? 'signIn' : 'signUp'}</button>
+      {/* <label htmlFor="newUser">New user {newUser ? 'signIn' : 'signUp'}</label> */}
 
       {
         user.success ? <h2 style={{ color: 'green' }}> user {newUser ? 'created' : 'logged In'} successfully</h2> :
