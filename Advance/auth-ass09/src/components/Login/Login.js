@@ -122,7 +122,6 @@ const Login = () => {
                     newUserInfo.success = true
                     setUser(newUserInfo)
                     console.log(errorMessage)
-                    setLoggedInUser(newUserInfo)
                     updateUserName(user.name)
                 })
                 .catch((error) => {
@@ -146,6 +145,7 @@ const Login = () => {
                     console.log(newUserInfo);
                     setUser(newUserInfo)
                     setLoggedInUser(newUserInfo)
+                    history.replace(from)
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
@@ -185,42 +185,39 @@ const Login = () => {
                     <h2>{user.email} 📧</h2>
                     <img src={user.photoURL} alt="" width='100px' />
                 </div>
-            }
+            } <br /><br />
 
-            <h1>our own authentication </h1>
 
-            <Form onSubmit={handleSubmit} className="w-50 m-4">
-                {/* {
-    newUser && <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" />
-  } */}
-                <Form.Group controlId="formBasicEmail">
 
-                    {
-                        newUser && <Form.Control type="name" name='name' onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" required />
-                    }
-                </Form.Group>
+            <div class="d-flex justify-content-center">
+                <Form onSubmit={handleSubmit} >
+                    <h5>{newUser ? 'create an account' : "Log In"}</h5> <br />
+                    <Form.Group controlId="formBasicEmail">
 
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Control type="email" name='email' onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required />
-                </Form.Group>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Control type="password" name="password" onBlur={handleBlur} placeholder="your password" required />
-                </Form.Group>
-                {
-                    newUser && <Form.Group controlId="formBasicEmail">
-                        <Form.Control type="password" name="confirm_password" onBlur={handleBlur} placeholder="confirm_password" required />
+                        {
+                            newUser && <Form.Control type="name" name='name' onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" required />
+                        }
                     </Form.Group>
-                }
 
-                <Button type="submit" >{newUser ? "Sign up" : "Sign In"}</Button>
-
-                {/* <input type="text" name="email" onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required /> <br /> <br /> */}
-                {/* <input type="password" name="password" onBlur={handleBlur} placeholder="your password" required /> <br /> <br /> */}
-                {/* <input type="submit" value={newUser ? "Sign up" : "Sign In"}></input> */}
-            </Form> <br /><br />
-            <label htmlFor="newUser">{newUser ? 'Have an Account ?' : "Don't Have an Account ?"} </label>
-            <button onClick={() => setNewUser(!newUser)} name="newUser">{newUser ? 'signIn' : 'signUp'}</button>
-            {/* <label htmlFor="newUser">New user {newUser ? 'signIn' : 'signUp'}</label> */}
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Control type="email" name='email' onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Control type="password" name="password" onBlur={handleBlur} placeholder="your password" required />
+                    </Form.Group>
+                    {
+                        newUser && <Form.Group controlId="formBasicEmail">
+                            <Form.Control type="password" name="confirm_password" onBlur={handleBlur} placeholder="confirm_password" required />
+                        </Form.Group>
+                    }
+                    <Button type="submit" >{newUser ? "Sign up" : "Log In"}</Button>
+                    <Form.Group>
+                        <label htmlFor="newUser">{newUser ? 'Already have an account ?' : "Don't Have an Account ?"} </label>
+                        <button style={{ background: 'none', color: 'red', outline: 'none', border: 'none', textDecoration: 'underline', fontSize: '20px' }}
+                            onClick={() => setNewUser(!newUser)} name="newUser">{newUser ? 'signIn' : 'create an account'}</button>
+                    </Form.Group>
+                </Form>
+            </div>
 
             {
                 user.success ? <h2 style={{ color: 'green' }}> user {newUser ? 'created' : 'logged In'} successfully</h2> :
