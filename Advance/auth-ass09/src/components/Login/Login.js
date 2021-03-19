@@ -3,7 +3,7 @@ import "firebase/auth";
 import { useContext, useState } from 'react';
 import { useHistory, useLocation } from "react-router";
 import { UserContext } from "../../App";
-
+import { Form, Button } from 'react-bootstrap';
 import firebaseConfig from "../firebase.config";
 
 if (!firebase.apps.length) {
@@ -24,6 +24,7 @@ const Login = () => {
             photoURL: '',
             name: '',
             password: '',
+            confirm_password: '',
             error: '',
             success: false,
         }
@@ -95,20 +96,15 @@ const Login = () => {
     console.log(user)
 
     const handleBlur = (event) => {
-        // console.log(event.target.value, event.target.name)
-        // validation 
         let isFieldValid = true;
         if (event.target.name === "email") {
-            // const isEmailValidation = /\S+@\S+\.\S+/.test(event.target.value)
-            // console.log(isEmailValidation)
-            isFieldValid = /\S+@\S+\.\S+/.test(event.target.value)    // return the truthy or falsy value
-            console.log(isFieldValid)
+            isFieldValid = /\S+@\S+\.\S+/.test(event.target.value)
         }
         if (event.target.name === "password") {
-            // const isPasswordValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
-            // console.log(isPasswordValid)
             isFieldValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
-            console.log(isFieldValid)
+        }
+        if (event.target.name === "confirm_password") {
+            isFieldValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
         }
         if (isFieldValid) {
             const newUserInfo = { ...user }
@@ -117,8 +113,7 @@ const Login = () => {
         }
     }
     const handleSubmit = (e) => {
-        if (newUser && user.email && user.password) {   //new user hole etar bitore jabe
-            // console.log("submitting done")
+        if (newUser && user.email && user.password === user.confirm_password) {
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
                 .then((res) => {
                     const errorMessage = '';
@@ -127,6 +122,7 @@ const Login = () => {
                     newUserInfo.success = true
                     setUser(newUserInfo)
                     console.log(errorMessage)
+                    setLoggedInUser(newUserInfo)
                     updateUserName(user.name)
                 })
                 .catch((error) => {
@@ -149,7 +145,7 @@ const Login = () => {
                     newUserInfo.success = true
                     console.log(newUserInfo);
                     setUser(newUserInfo)
-                    console.log("sign in user info ", res.user)
+                    setLoggedInUser(newUserInfo)
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
@@ -160,7 +156,7 @@ const Login = () => {
                     console.log(errorMessage)
                 });
         }
-        e.preventDefault()    // don't reload submit page
+        e.preventDefault()
     }
     // update user info   => name ke firebase patanu
     const updateUserName = (name) => {
@@ -192,24 +188,45 @@ const Login = () => {
             }
 
             <h1>our own authentication </h1>
-            <input type="checkbox" onChange={() => setNewUser(!newUser)} name="newUser"></input>
-            <label htmlFor="newUser">New user signUp</label>
-            {/* <p>email : {user.email}</p>
-      <p>name : {user.name}</p> */}
-            <form onSubmit={handleSubmit}>
+
+            <Form onSubmit={handleSubmit} className="w-50 m-4">
+                {/* {
+    newUser && <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" />
+  } */}
+                <Form.Group controlId="formBasicEmail">
+
+                    {
+                        newUser && <Form.Control type="name" name='name' onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" required />
+                    }
+                </Form.Group>
+
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Control type="email" name='email' onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required />
+                </Form.Group>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Control type="password" name="password" onBlur={handleBlur} placeholder="your password" required />
+                </Form.Group>
                 {
-                    newUser && <input type="text" name="name" onBlur={handleBlur} onFocus={handleBlur} placeholder="your name" />
-                }<br /> <br />
-                <input type="text" name="email" onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required /> <br /> <br />
-                <input type="password" name="password" onBlur={handleBlur} placeholder="your password" required /> <br /> <br />
-                {/* <input type="submit" onSubmit={handleSubmit} value="submit"></input> */}
-                <input type="submit" onSubmit={handleSubmit} value={newUser ? "Sign up" : "Sign In"}></input>
-            </form>
+                    newUser && <Form.Group controlId="formBasicEmail">
+                        <Form.Control type="password" name="confirm_password" onBlur={handleBlur} placeholder="confirm_password" required />
+                    </Form.Group>
+                }
+
+                <Button type="submit" >{newUser ? "Sign up" : "Sign In"}</Button>
+
+                {/* <input type="text" name="email" onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required /> <br /> <br /> */}
+                {/* <input type="password" name="password" onBlur={handleBlur} placeholder="your password" required /> <br /> <br /> */}
+                {/* <input type="submit" value={newUser ? "Sign up" : "Sign In"}></input> */}
+            </Form> <br /><br />
+            <label htmlFor="newUser">{newUser ? 'Have an Account ?' : "Don't Have an Account ?"} </label>
+            <button onClick={() => setNewUser(!newUser)} name="newUser">{newUser ? 'signIn' : 'signUp'}</button>
+            {/* <label htmlFor="newUser">New user {newUser ? 'signIn' : 'signUp'}</label> */}
 
             {
-                user.success ? <h5 style={{ color: 'green' }}> user {newUser ? 'created' : 'logged In'} successfully</h5> :
+                user.success ? <h2 style={{ color: 'green' }}> user {newUser ? 'created' : 'logged In'} successfully</h2> :
                     <h5 style={{ color: 'red' }}> {user.error}</h5>
             }
+
         </div>
     );
 };

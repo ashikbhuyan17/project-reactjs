@@ -21,6 +21,7 @@ function App() {
       photoURL: '',
       name: '',
       password: '',
+      confirm_password: '',
       error: '',
       success: false,
     }
@@ -36,6 +37,9 @@ function App() {
     if (event.target.name === "password") {
       isFieldValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
     }
+    if (event.target.name === "confirm_password") {
+      isFieldValid = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/.test(event.target.value)
+    }
     if (isFieldValid) {
       const newUserInfo = { ...user }
       newUserInfo[event.target.name] = event.target.value
@@ -43,7 +47,7 @@ function App() {
     }
   }
   const handleSubmit = (e) => {
-    if (newUser && user.email && user.password) {
+    if (newUser && user.email && user.password === user.confirm_password) {
       firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
         .then((res) => {
           const errorMessage = '';
@@ -119,6 +123,12 @@ function App() {
         <Form.Group controlId="formBasicEmail">
           <Form.Control type="password" name="password" onBlur={handleBlur} placeholder="your password" required />
         </Form.Group>
+        {
+          newUser && <Form.Group controlId="formBasicEmail">
+            <Form.Control type="password" name="confirm_password" onBlur={handleBlur} placeholder="confirm_password" required />
+          </Form.Group>
+        }
+
         <Button type="submit" >{newUser ? "Sign up" : "Sign In"}</Button>
 
         {/* <input type="text" name="email" onBlur={handleBlur} onFocus={handleBlur} placeholder="your email" required /> <br /> <br /> */}
