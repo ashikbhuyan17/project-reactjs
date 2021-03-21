@@ -7,6 +7,9 @@ import Product from '../Product/Product';
 import './Shop.css'
 
 const Shop = () => {
+
+    document.title = "Shop"
+
     // console.log(fakeData);
     // const first10 = fakeData.slice(0, 10)
     // console.log(first10);
