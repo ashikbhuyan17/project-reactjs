@@ -67,6 +67,10 @@ const Shop = () => {
     return (
         <div className="twin-container">
             <div className="product-container">
+                {/* spinner */}
+                {
+                    product.length == 0 && <p>loading....</p>
+                }
 
                 {
                     product.map((p, index) =>

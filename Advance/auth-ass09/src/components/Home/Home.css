@@ -1,0 +1,23 @@
+.ride-card {
+    padding: 40px;
+    margin-top: 10%;
+    
+}
+
+@media only screen and (min-width: 600px) {
+    .ride-container {
+        width: 100%;
+        /* background-color: aqua; */
+    background-image:none;
+
+        
+    }
+}
+
+.style {
+    width: 100%;
+    height: 100vh;
+    /* background-image: url(../Images/Bg.png); */
+    /* background-repeat: no-repeat;
+    background-size: cover; */
+}

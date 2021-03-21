@@ -14,6 +14,9 @@ import Login from './components/Login/Login';
 import Destination from './components/Destination/Destination';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NoMatch from './components/NoMatch/NoMatch';
+import Contact from './components/Contact/Contact';
+import Blog from './components/Blog/Blog';
 
 
 export const UserContext = createContext()
@@ -33,16 +36,27 @@ function App() {
           <Route path="/home">
             <Home />
           </Route>
-          <PrivateRoute path="/riderDetails/:id">
+          <PrivateRoute path="/destination/:id">
+            <Destination />
+          </PrivateRoute>
+          <PrivateRoute path="/destination">
             <Destination />
           </PrivateRoute>
 
           <Route path="/login">
             <Login />
           </Route>
-          <PrivateRoute path="/destination">
-            <Destination />
-          </PrivateRoute>
+          <Route path="/contact">
+            <Contact />
+          </Route>
+          <Route path="/blog">
+            <Blog />
+          </Route>
+
+          <Route path="*">
+            <NoMatch />
+          </Route>
+
 
         </Switch>
       </Router>
