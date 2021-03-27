@@ -4,6 +4,7 @@ import { userContext } from '../../App';
 import './Shipment.css'
 
 const Shipment = () => {
+    document.title = "Shipment"
     const [loggedInUser, setLoggedInUser] = useContext(userContext)
     console.log(loggedInUser);
 
