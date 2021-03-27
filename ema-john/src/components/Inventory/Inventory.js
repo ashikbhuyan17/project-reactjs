@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import fakeData from '../../fakeData';
 
 const Inventory = () => {
+    const handleAddProduct = () => {
+        fetch('http://localhost:5000/addProduct', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(fakeData)
+        })
+    }
     return (
         <div>
-            <h3>this is Inventory</h3>
+            <button onClick={handleAddProduct}>Add product</button>
         </div>
     );
 };
