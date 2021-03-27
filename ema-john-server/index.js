@@ -24,7 +24,21 @@ client.connect(err => {
             })
     })
     app.get('/products', (req, res) => {     //for data read
-        productsCollection.find({}).limit(20)
+        productsCollection.find({})
+            .toArray((err, documents) => {
+                res.send(documents)
+            })
+    })
+    app.get('/product/:key', (req, res) => {     // read one data ... params => Parameter  
+        productsCollection.find({ key: req.params.key })
+            .toArray((err, documents) => {
+                res.send(documents[0])
+            })
+    })
+
+    app.post('/productsByKeys', (req, res) => {     // read one data ... params => Parameter  
+        const productKeys = req.body
+        productsCollection.find({ key: { $in: productKeys } })     //for multiple keys
             .toArray((err, documents) => {
                 res.send(documents)
             })

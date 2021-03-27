@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import fakeData from '../../fakeData';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
@@ -13,28 +12,33 @@ const Shop = () => {
     // console.log(fakeData);
     // const first10 = fakeData.slice(0, 10)
     // console.log(first10);
-    const first10 = fakeData.slice(0, 20)
-    const [product, setProducts] = useState(first10)
+    // const first10 = fakeData.slice(0, 20)
+    // const [product, setProducts] = useState(first10)
+    const [product, setProducts] = useState([])
+
 
     // using cart
     const [cart, setCart] = useState([])
     console.log(cart);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/products')
+            .then(res => res.json())
+            .then(data => setProducts(data))
+    }, [])
 
     // reload hole jate cart value cole na jai or reload korle page er kono pblm hbe na jmn ace tmn takhbe
     useEffect(() => {
         const savedCart = getDatabaseCart()
         console.log(savedCart);
         const productKeys = Object.keys(savedCart)
-        console.log(productKeys);
-        const previousCart = productKeys.map(existingKey => {
-            const product = fakeData.find(pd => pd.key === existingKey)
-            // quantity name ekat object create kora holo 
-            product.quantity = savedCart[existingKey]
-            // console.log(existingKey, savedCart[existingKey]);
-            return product
+        fetch('http://localhost:5000/productsByKeys', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(productKeys)
         })
-        console.log(previousCart);
-        setCart(previousCart)
+            .then(res => res.json())
+            .then(data => setCart(data))
     }, [])
 
 
