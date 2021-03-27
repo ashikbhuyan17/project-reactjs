@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
-import fakeData from '../../fakeData';
 
 const Inventory = () => {
     const handleAddProduct = () => {
+        const product = {}
         fetch('http://localhost:5000/addProduct', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(fakeData)
+            body: JSON.stringify(product)
         })
     }
     return (
         <div>
-            <button onClick={handleAddProduct}>Add product</button>
+            <form action="">
+                <p><span>name : </span><input type="text" /></p>
+                <p><span>price : </span><input type="text" /></p>
+                <p><span>quantity : </span><input type="text" /></p>
+                <p><span>Product Image : </span><input type="file" /></p>
+                <button onClick={handleAddProduct}>Add product</button>
+
+            </form>
         </div>
     );
 };
