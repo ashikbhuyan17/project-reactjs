@@ -27,11 +27,21 @@ export const handleGoogleSignIn = () => {
                 photoURL: photoURL,
                 success: true,
             }
+            // sessionStorage.setItem('token', signedInUser.user)
+            setUserToken()
             return (signedInUser)
 
         })
 }
 
+
+const setUserToken = () => {
+    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
+        sessionStorage.setItem('token', idToken)
+    }).catch(function (error) {
+        // Handle error
+    });
+}
 
 // for facebook  signIn
 export const handleFbSignIn = () => {

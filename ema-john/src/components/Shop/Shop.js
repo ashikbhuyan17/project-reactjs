@@ -15,6 +15,7 @@ const Shop = () => {
     // const first10 = fakeData.slice(0, 20)
     // const [product, setProducts] = useState(first10)
     const [product, setProducts] = useState([])
+    const [searchFilter, setSearchFilter] = useState('')
 
 
     // using cart
@@ -22,10 +23,10 @@ const Shop = () => {
     console.log(cart);
 
     useEffect(() => {
-        fetch('http://localhost:5000/products')
+        fetch('http://localhost:5000/products?search=' + searchFilter)
             .then(res => res.json())
             .then(data => setProducts(data))
-    }, [])
+    }, [searchFilter])
 
     // reload hole jate cart value cole na jai or reload korle page er kono pblm hbe na jmn ace tmn takhbe
     useEffect(() => {
@@ -40,6 +41,12 @@ const Shop = () => {
             .then(res => res.json())
             .then(data => setCart(data))
     }, [])
+
+
+
+    const handleSearch = (event) => {
+        setSearchFilter(event.target.value)
+    }
 
 
     const handleAddProduct = (product) => {
@@ -74,6 +81,8 @@ const Shop = () => {
     return (
         <div className="twin-container">
             <div className="product-container">
+                <input type="text" onBlur={handleSearch} className="product-search" />
+
                 {/* spinner */}
                 {
                     product.length == 0 && <p>loading....</p>

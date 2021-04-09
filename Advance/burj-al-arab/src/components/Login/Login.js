@@ -4,7 +4,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from './fire';
 import { useHistory, useLocation } from 'react-router';
-import { UserContext } from '../../App';
+import { UserContext } from '../Router/HandleRouter';
+// import { UserContext } from '../../App';
 
 
 
