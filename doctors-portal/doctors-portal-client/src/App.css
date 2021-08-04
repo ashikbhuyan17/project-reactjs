@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+
+.text-brand{
+  color: #1cc7c1;
+  font-weight: bold;
+}
+.btn-brand{
+  color: white;
+  background: #1cc7c1;
+  font-weight: bold;
+}
+.btn-brand :hover{
+  color: white;
+  background: #606b6b;
+  font-weight: bold;
+}
+
+.card-body{
+  border: none;
+}

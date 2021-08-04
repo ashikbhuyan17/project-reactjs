@@ -1,0 +1,21 @@
+@import '../../styles/shared/color.scss';
+.first-box{
+    border: 1px solid $primary-color;
+    color: $text-important;
+    margin: 10px;
+}
+.second-box{
+    border: 1px solid $primary-color;
+    color: goldenrod;
+    margin: 10px;
+}
+.third-box{
+    border: 1px solid $primary-color;
+    color: $text-important;
+    margin: 10px;
+}
+.four-box{
+    border: 1px solid $primary-color;
+    color: goldenrod;
+    margin: 10px;
+}

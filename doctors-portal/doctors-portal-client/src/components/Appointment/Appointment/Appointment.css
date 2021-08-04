@@ -1,0 +1,6 @@
+.appointment-container{
+    position: relative;
+    /* height:800px; */
+    background: url(../../../images//chair-bg.png);
+    background-size: cover;
+}
